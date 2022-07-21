@@ -33,8 +33,6 @@ with open(json_path, 'r', encoding='UTF-8') as file:
         line = line.split(" ")[1:]
 
 
-        # img_color = cv.circle(img_color, (line500[0]+line500[2], line353[1]+line353[3]), 5, red_color, 2)
-        # img_color = cv.circle(img_color, (line500[0], line353[1]), 5, blue_color, 2)
         img_width = img_color.shape[0]
         img_height = img_color.shape[1]
 
@@ -61,9 +59,7 @@ with open(json_path, 'r', encoding='UTF-8') as file:
 
         print(x,y,w,h)
         img_color = cv.rectangle(img_color, (x, y), (w+x, h+y), red_color, 2)
-        # (500, 353, 3)
-        # 170 214 208 92
-        # 253 179 487 343
+
 
     cv.imshow("mouseRGB", img_color)
 
