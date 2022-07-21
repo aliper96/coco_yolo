@@ -18,11 +18,11 @@ blue_color = (255,144,30)
 red_color = (0, 0, 255)
 names= np.array(['Alternaria', 'Basidiospora', 'Cladosporium', 'HDE'])
 
-img_folder_path = "pollen_data/images/Sample_81_HDE/"
+img_folder_path = "validation_data/Pattern_Pollen_Detector/"
 img_ext = ".jpeg"
-json_folder_path = "pollen_data/releases/sample81hdeikerlan0.1/annotations/"
+json_folder_path = "validation_data/patternhde0.1/annotations/"
 
-yolo_folder = "yolo_dataset_4cls_crop/"
+yolo_folder = "yolo_dataset_validdation/"
 yolo_label_train = "labels/train/"
 yolo_label_val = "labels/val/"
 yolo_images_train = "images/train/"
@@ -84,8 +84,8 @@ for i, json_path in enumerate(tqdm(list_jsons)):
     if not create_empty_json:
       if not np.any(yolo_annotation):
         continue
-    # if just_val:
-    if (i % 7 == 0):
+    if just_val:
+    # if (i % 7 == 0):
       with open(yolo_folder+yolo_label_val+filename+".txt", 'w') as f:
         if crop_black:
           img_color = crop(img_color)
@@ -97,8 +97,8 @@ for i, json_path in enumerate(tqdm(list_jsons)):
             f.write("%i %f %f %f %f\n" % (item[0], item[1],item[2], item[3], item[4]))
           except:
             continue
-    # if just_train:
-    if(i % 7 != 0) :
+    if just_train:
+    # if(i % 7 != 0) :
 
       with open(yolo_folder + yolo_label_train + filename + ".txt", 'w') as f:
         if crop_black:

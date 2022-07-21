@@ -11,12 +11,12 @@ image_path =  "0205221008__135.jpeg"
 window_name = 'Image'
 
 
-img_real_folder_path =  "C:/Users/aliper/Desktop/Proyectos/datasets/yolo_dataset_4clases/images/train/"
-text_folder_path =  "C:/Users/aliper/Desktop/Proyectos/datasets/yolo_dataset_4clases/labels/train/"
-images_folder_path = "C:/Users/aliper/Desktop/Proyectos/yolov5/runs/detect/exp12/"
-output_folder_path = "C:/Users/aliper/Desktop/Proyectos/yolov5/runs/output/"
+img_real_folder_path =  "yolo_dataset_validation/images/val/"
+text_folder_path =  "yolo_dataset_validation/labels/val/"
+images_folder_path = "exp4/"
+output_folder_path = "output_validate/"
 ext_img = ".jpg"
-
+ext_img_2 = ".jpeg"
 
 dim = (624, 624)
 #RGB-BGR
@@ -33,11 +33,12 @@ def mouseRGB(event,x,y,flags,param):
 list_annotation = glob.glob(text_folder_path + './*.txt')
 
 for annotation in tqdm(list_annotation):
+    is_annotated = False
     filename = annotation.split("\\")[-1][:-4]
 
     with open(text_folder_path + filename + ".txt", 'r', encoding='UTF-8') as file:
         img_color = cv.imread(img_real_folder_path + filename + ext_img, 1)
-        img_color_pre = cv.imread(images_folder_path + filename + ext_img, 1)
+        img_color_pre = cv.imread(images_folder_path + filename + ext_img_2, 1)
 
         if img_color is None:
             continue
@@ -75,7 +76,7 @@ for annotation in tqdm(list_annotation):
             w = int (width_coco)
             h = int (height_coco)
 
-
+            is_annotated = True
             # print(x,y,w,h)
             img_color_annotated = cv.rectangle(img_color_annotated, (x, y), (w+x, h+y), red_color, 2)
 
@@ -85,6 +86,8 @@ for annotation in tqdm(list_annotation):
 
     vis = np.concatenate((img_color, img_color_annotated, img_color_pre), axis=1)
 
+    if is_annotated:
+        filename += "_anted"
     # cv.imshow("mouseRGB", img_color)
     cv.imwrite(output_folder_path + filename + ".png", vis)
 
