@@ -47,6 +47,8 @@ def crop(image):
 
 for i, json_path in enumerate(tqdm(list_jsons)):
   filename = json_path.split("\\")[-1][:-5]
+  # if filename == "2812211634_0_2.360_10.636_-0.072":
+  #   print("adsfa")
   with open(json_path, 'r+') as f:
     data = json.load(f)
     img_color = cv.imread(img_folder_path + filename + img_ext, 1)
@@ -77,7 +79,7 @@ for i, json_path in enumerate(tqdm(list_jsons)):
 
       # print("OPENCV :" , x,y,w,h)
       id = np.where(names == annotation["name"])
-      if not np.any(id[0]):
+      if not np.any(names == annotation["name"]):
         continue
       yolo_annotation.append([id[0],x_yolo,y_yolo,with_yolo,height_yolo])
 
